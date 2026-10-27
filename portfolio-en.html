@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peter Yuan · Barista Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5ede0;
+    --espresso: #2a1a0e;
+    --caramel: #c07a3a;
+    --latte: #d4a47a;
+    --foam: #faf4ec;
+    --dark-roast: #1a0f07;
+    --mid: #6b3d1e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark-roast);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(20%) brightness(0.75);
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--dark-roast) 0%, transparent 40%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--foam);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--latte);
+  }
+
+  .hero-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--caramel);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-bio {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(245, 237, 224, 0.78);
+    max-width: 420px;
+    font-weight: 300;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+    margin-bottom: 48px;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--caramel);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: rgba(245, 237, 224, 0.5);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* RSA badge */
+  .rsa-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(192, 122, 58, 0.12);
+    border: 1px solid rgba(192, 122, 58, 0.35);
+    padding: 10px 18px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.15s forwards;
+    margin-bottom: 32px;
+  }
+
+  .rsa-badge-icon {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--caramel);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .rsa-badge-icon::after {
+    content: '✓';
+    font-size: 10px;
+    color: var(--caramel);
+    line-height: 1;
+  }
+
+  .rsa-badge-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--latte);
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(245, 237, 224, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.4s forwards;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--caramel);
+    opacity: 0.5;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 120px 80px; position: relative; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--caramel);
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--foam);
+    margin-bottom: 64px;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section {
+    background: var(--espresso);
+    padding-bottom: 100px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 250px;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 20px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark-roast);
+    border: 1px solid rgba(192, 122, 58, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.5s ease;
+    filter: brightness(0.9) contrast(1.1);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1) contrast(1.15);
+  }
+
+  .item-1 { grid-column: span 2; grid-row: span 2; }
+  .item-2, .item-3 { grid-column: span 1; grid-row: span 1; }
+  .item-4, .item-5 { grid-column: span 1; grid-row: span 1; }
+
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,15,7,0.9) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    pointer-events: none;
+  }
+
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+  .gallery-item-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--caramel);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+
+  .gallery-item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--cream);
+  }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--dark-roast); }
+
+  .skills-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .skill-group { margin-bottom: 48px; }
+
+  .skill-group-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(192, 122, 58, 0.2);
+  }
+
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+    color: rgba(245, 237, 224, 0.8);
+    font-weight: 300;
+  }
+
+  .skill-bar {
+    width: 120px;
+    height: 2px;
+    background: rgba(192, 122, 58, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--mid), var(--caramel));
+    transform-origin: left;
+    animation: barFill 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    transform: scaleX(0);
+  }
+
+  .skills-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: rgba(245, 237, 224, 0.65);
+    font-weight: 300;
+  }
+
+  .skills-text strong {
+    color: var(--latte);
+    font-weight: 400;
+  }
+
+  /* ── WHY MELBOURNE callout ── */
+  .callout-section {
+    background: linear-gradient(135deg, rgba(42,26,14,0.95) 0%, rgba(26,15,7,1) 100%);
+    border-top: 1px solid rgba(192,122,58,0.15);
+    border-bottom: 1px solid rgba(192,122,58,0.15);
+  }
+
+  .callout-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .callout-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--foam);
+    line-height: 1.3;
+    margin-bottom: 24px;
+  }
+
+  .callout-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.95;
+    color: rgba(245, 237, 224, 0.68);
+    font-weight: 300;
+  }
+
+  .callout-body strong { color: var(--latte); font-weight: 400; }
+
+  .callout-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .highlight-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .highlight-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: rgba(192,122,58,0.4);
+    line-height: 1;
+    min-width: 32px;
+  }
+
+  .highlight-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(245,237,224,0.7);
+  }
+
+  .highlight-text strong { color: var(--latte); font-weight: 400; }
+
+  /* ── EXPERIENCE ── */
+  .experience-section {
+    background: rgba(42, 26, 14, 0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+    max-width: 800px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--caramel), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.7s forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.25s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.55s; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -44px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--caramel);
+    border: 2px solid var(--dark-roast);
+    box-shadow: 0 0 0 1px var(--caramel);
+  }
+
+  .timeline-period {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--caramel);
+    margin-bottom: 6px;
+  }
+
+  .timeline-company {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--foam);
+    margin-bottom: 2px;
+  }
+
+  .timeline-role {
+    font-size: 0.8rem;
+    color: rgba(245, 237, 224, 0.45);
+    margin-bottom: 12px;
+    font-weight: 300;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-desc {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: rgba(245, 237, 224, 0.6);
+    font-weight: 300;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--espresso);
+    text-align: center;
+  }
+
+  .contact-section .section-label { justify-content: center; }
+  .contact-section .section-label::before { display: none; }
+
+  .contact-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--latte);
+    margin-bottom: 16px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-email:hover { color: var(--foam); }
+
+  .contact-details {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(245, 237, 224, 0.35);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .contact-item-value {
+    font-size: 0.95rem;
+    color: rgba(245, 237, 224, 0.75);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 80px;
+    background: var(--dark-roast);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(192, 122, 58, 0.1);
+  }
+
+  footer .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--caramel);
+  }
+
+  footer .copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(245, 237, 224, 0.25);
+  }
+
+  .divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--caramel), transparent);
+    margin: 0 auto 64px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes barFill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { display: flex; flex-direction: column; }
+    .hero-right { display: block; order: -1; height: 40vh; }
+    .hero-right::after { background: linear-gradient(to top, var(--dark-roast) 0%, transparent 60%); }
+    .hero-left { padding: 40px 30px 80px; text-align: center; align-items: center; }
+    .scroll-hint { display: none; }
+    section { padding: 80px 30px; }
+    .skills-inner { grid-template-columns: 1fr; gap: 40px; }
+    .callout-inner { grid-template-columns: 1fr; gap: 40px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
+    .item-1 { grid-column: span 2; grid-row: span 2; }
+    .item-2, .item-3, .item-4, .item-5 { grid-column: span 1; grid-row: span 1; }
+    footer { flex-direction: column; gap: 12px; padding: 24px 30px; }
+    .contact-details { gap: 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-name { font-size: 3rem; }
+    .gallery-grid { grid-auto-rows: 160px; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-right">
+    <img src="IMG_1535.jpeg" alt="Latte art — Peter Yuan">
+  </div>
+  <div class="hero-left">
+    <span class="hero-eyebrow">Barista Portfolio · Melbourne 2026</span>
+    <h1 class="hero-name">Peter<br><em>Yuan</em></h1>
+    <p class="hero-title">Espresso · Latte Art · Café Operations</p>
+    <p class="hero-bio">
+      Barista with hands-on experience across specialty and chain café environments.
+      Passionate about consistently great espresso and the craft of latte art —
+      bringing warmth, speed and reliability to every service.
+    </p>
+    <div class="rsa-badge">
+      <div class="rsa-badge-icon"></div>
+      <span class="rsa-badge-text">RSA Certificate — Available upon request</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Brands</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2yr</span>
+        <span class="stat-label">Bar Experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">895</span>
+        <span class="stat-label">TOEIC Score</span>
+      </div>
+    </div>
+    <div class="scroll-hint">SCROLL TO EXPLORE</div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div style="padding: 0 0 40px;">
+    <div class="section-label">Latte Art Portfolio</div>
+    <h2 class="section-heading" style="margin-bottom:0;">My Work</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item item-1">
+      <img src="IMG_1624.jpeg" alt="Tulip latte art">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Signature</span>
+        <span class="gallery-item-title">Tulip pour on flat white</span>
+      </div>
+    </div>
+    <div class="gallery-item item-2">
+      <img src="IMG_1535.jpeg" alt="Latte art">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Daily Practice</span>
+        <span class="gallery-item-title">Layered heart rosetta</span>
+      </div>
+    </div>
+    <div class="gallery-item item-3">
+      <img src="IMG_1900.jpeg" alt="Latte art">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Daily Practice</span>
+        <span class="gallery-item-title">Heart on chocolate</span>
+      </div>
+    </div>
+    <div class="gallery-item item-4">
+      <img src="IMG_2225.jpeg" alt="Latte art">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Daily Practice</span>
+        <span class="gallery-item-title">Swirl tulip</span>
+      </div>
+    </div>
+    <div class="gallery-item item-5">
+      <img src="IMG_2284.jpeg" alt="Latte art">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Daily Practice</span>
+        <span class="gallery-item-title">Rosetta on long black</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="section-label">Craft &amp; Expertise</div>
+  <h2 class="section-heading">What I Bring</h2>
+  <div class="skills-inner">
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-title">Bar Skills</div>
+        <div class="skill-item">
+          <span class="skill-name">Espresso extraction &amp; grinder calibration</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:92%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Milk texturing &amp; latte art</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Manual brew (pour-over)</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">High-volume service under pressure</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;"></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Operations</div>
+        <div class="skill-item">
+          <span class="skill-name">SOP development &amp; training</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:87%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Stock control &amp; ordering</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">POS systems &amp; cash handling</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="skills-text">
+        At <strong>2Gather Café</strong> I was given full responsibility for espresso machine calibration and independent pour-over service from day one. I developed <strong>3 original signature drinks</strong> and rebuilt the stock management system from scratch — cutting wastage and eliminating shortfalls during peak periods.
+        <br><br>
+        A stint at <strong>Louisa Coffee</strong> (500+ location chain) sharpened my ability to produce consistent quality under high volume — exactly the pace Melbourne café culture demands.
+        <br><br>
+        I hold a <strong>TOEIC score of 895</strong> and am comfortable in all-English service environments. I pick up new workflows quickly, work well within a team, and take real pride in a clean, well-run bar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY MELBOURNE -->
+<section class="callout-section">
+  <div class="callout-inner">
+    <div>
+      <p class="hero-eyebrow" style="opacity:1; margin-bottom:16px;">Currently in Melbourne</p>
+      <h2 class="callout-heading">Ready to contribute<br>from day one.</h2>
+      <p class="callout-body">
+        I'm in Melbourne on a <strong>working holiday visa</strong> and actively looking for a barista role — whether that's part-time, casual or full-time. I'm available immediately and happy to do a trial shift.
+      </p>
+    </div>
+    <div class="callout-highlights">
+      <div class="highlight-item">
+        <span class="highlight-num">01</span>
+        <p class="highlight-text"><strong>Immediate availability</strong> — no notice period, ready to start whenever suits you.</p>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">02</span>
+        <p class="highlight-text"><strong>Trial shift welcome</strong> — I'd love to show you what I can do behind the bar before any commitment.</p>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">03</span>
+        <p class="highlight-text"><strong>RSA Certificate</strong> — obtained and ready to present, covering responsible service of alcohol requirements.</p>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">04</span>
+        <p class="highlight-text"><strong>Fluent English</strong> — TOEIC 895; confident and clear in customer-facing and team settings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section">
+  <div class="section-label">Career History</div>
+  <h2 class="section-heading">Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Nov 2025 — Apr 2026 · 6 months</div>
+      <div class="timeline-company">2Gather Café</div>
+      <div class="timeline-role">Barista · Full-time · Taoyuan, Taiwan</div>
+      <p class="timeline-desc">Sole responsibility for espresso machine calibration and daily dialling-in. Developed 3 original signature beverages adopted into the menu. Redesigned the stock inventory system and introduced a new SOP that resolved ongoing supply shortfalls. Supported social media content and drove a measurable increase in pre-orders.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Jul 2025 — Aug 2025 · 2 months</div>
+      <div class="timeline-company">Louisa Coffee (Management Trainee)</div>
+      <div class="timeline-role">Bar Trainee · Taoyuan, Taiwan</div>
+      <p class="timeline-desc">Completed management-track training at one of Taiwan's largest specialty-chain brands (500+ locations). Drilled on high-volume milk work, bar cleanliness, and cross-station cover during peak rushes. Sharpened speed and consistency under real commercial pressure.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Jun 2024 — Apr 2025 · 11 months</div>
+      <div class="timeline-company">Texas Roadhouse (Louders)</div>
+      <div class="timeline-role">Bar Operator · Taoyuan, Taiwan</div>
+      <p class="timeline-desc">Passed full SOP certification and moved to independent bar operation within three months of joining. Achieved monthly VIP upselling targets and supported onboarding of new team members. Cross-trained across floor service and bar.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Mar 2022 — Nov 2022 · 9 months</div>
+      <div class="timeline-company">Milksha (Bubble Tea Chain)</div>
+      <div class="timeline-role">Drinks Operator · Chiayi, Taiwan</div>
+      <p class="timeline-desc">Front-line drinks preparation and customer service in a busy retail café environment. Built fundamentals in speed, accuracy and friendly upselling. First professional bar role.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-heading" style="margin-bottom:16px;">Let's Chat</h2>
+  <div class="divider"></div>
+  <a href="mailto:peteryuan08@gmail.com" class="contact-email">peteryuan08@gmail.com</a>
+  <div class="contact-details">
+    <div class="contact-item">
+      <div class="contact-item-label">Phone / WhatsApp</div>
+      <div class="contact-item-value">+61 — available on request</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item-label">Location</div>
+      <div class="contact-item-value">Melbourne, VIC</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item-label">Availability</div>
+      <div class="contact-item-value">Immediate · Trial shift welcome</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item-label">Visa</div>
+      <div class="contact-item-value">Working Holiday (WHV)</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item-label">Education</div>
+      <div class="contact-item-value">BBA — National Chung Cheng University</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo-text">Peter Yuan · Barista</span>
+  <span class="copy">Melbourne Portfolio · 2026</span>
+</footer>
+
+</body>
+</html>
