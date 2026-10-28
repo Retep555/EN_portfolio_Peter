@@ -2,225 +2,478 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peter Yuan · Barista & Kitchen Hand Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Peter Yuan · Cafe All-Rounder & Kitchen Hand | Melbourne</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #f5ede0;
-    --espresso: #2a1a0e;
-    --caramel: #c07a3a;
-    --latte: #d4a47a;
-    --foam: #faf4ec;
-    --dark-roast: #1a0f07;
-    --mid: #6b3d1e;
+    --bg-dark: #0f1419;
+    --card-bg: #171f26;
+    --card-border: #263340;
+    --accent: #22c55e;
+    --accent-glow: rgba(34, 197, 94, 0.15);
+    --gold: #f59e0b;
+    --text-main: #f3f4f6;
+    --text-sub: #9ca3af;
+    --text-muted: #6b7280;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
   body {
-    background: var(--dark-roast);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
-    overflow-x: hidden;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.5;
+    padding-bottom: 90px;
   }
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 40px;
-    position: relative;
-    max-width: 800px;
+
+  .container {
+    max-width: 480px;
     margin: 0 auto;
+    padding: 16px 16px 0;
   }
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
+
+  /* ── MOBILE HEADER CARD ── */
+  .profile-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #22c55e, #3b82f6);
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 20px;
     font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--caramel);
-    margin-bottom: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
-  .hero-name {
-    font-size: clamp(3.5rem, 7vw, 5.5rem);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--foam);
-    margin-bottom: 8px;
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.8s infinite;
   }
-  .hero-name em { font-style: italic; color: var(--latte); }
+
   .hero-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
-    color: var(--caramel);
-    margin-bottom: 36px;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 4px;
   }
-  .hero-bio {
-    font-size: 1.05rem;
-    line-height: 1.85;
-    color: rgba(245, 237, 224, 0.8);
-    font-weight: 300;
-    margin-bottom: 40px;
-  }
-  .hero-stats {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  .stat-num {
-    font-size: 2.2rem;
-    font-weight: 300;
-    color: var(--caramel);
-    display: block;
-  }
-  .stat-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: rgba(245, 237, 224, 0.5);
-    text-transform: uppercase;
-  }
-  section { padding: 100px 40px; max-width: 1000px; margin: 0 auto; }
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--caramel);
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    color: var(--gold);
+    font-weight: 600;
     margin-bottom: 16px;
   }
-  .section-heading {
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    font-weight: 300;
-    color: var(--foam);
-    margin-bottom: 48px;
+
+  /* Quick Info Grid for Walk-ins */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--card-border);
   }
+
+  .info-item {
+    background: rgba(0,0,0,0.2);
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+
+  .info-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 700;
+    display: block;
+  }
+
+  .info-value {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-sub);
+    margin: 20px 4px 10px;
+  }
+
+  /* ── CARD STYLES ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  /* Highlights / Key Selling Points */
+  .highlight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .highlight-item {
+    font-size: 0.88rem;
+    color: #e5e7eb;
+    line-height: 1.4;
+  }
+
+  .highlight-item strong {
+    color: #ffffff;
+  }
+
+  /* Skills Pills */
+  .tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d1d5db;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  .tag.highlight {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: var(--gold);
+  }
+
+  /* Timeline / Experience */
+  .job-item {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .job-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .job-role {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff;
+  }
+
+  .job-period {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .job-company {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .job-desc {
+    font-size: 0.82rem;
+    color: var(--text-sub);
+    padding-left: 12px;
+    border-left: 2px solid var(--card-border);
+  }
+
+  .job-desc li {
+    margin-bottom: 4px;
+    list-style-type: none;
+  }
+
+  /* Latte Art Gallery */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 8px;
   }
+
   .gallery-item {
     position: relative;
+    border-radius: 10px;
     overflow: hidden;
-    background: var(--dark-roast);
-    border: 1px solid rgba(192, 122, 58, 0.2);
-    aspect-ratio: 4/3;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    border: 1px solid var(--card-border);
   }
-  .gallery-item.large {
-    grid-column: span 2;
-    aspect-ratio: 16/9;
-  }
+
   .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
-  .gallery-overlay {
+
+  .gallery-item-tag {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 16px;
-    background: linear-gradient(to top, rgba(26,15,7,0.9), transparent);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--latte);
-  }
-  .experience-card {
-    margin-bottom: 40px;
-    border-left: 1px solid var(--caramel);
-    padding-left: 24px;
-  }
-  .exp-period {
-    font-family: 'Space Mono', monospace;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    color: #fff;
     font-size: 0.65rem;
-    color: var(--caramel);
-    letter-spacing: 0.2em;
-    margin-bottom: 6px;
-  }
-  .exp-title { font-size: 1.4rem; color: var(--foam); margin-bottom: 4px; }
-  .exp-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(245,237,224,0.7); }
-  footer {
-    padding: 40px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 4px;
     text-align: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: rgba(245,237,224,0.4);
-    border-top: 1px solid rgba(192,122,58,0.1);
+  }
+
+  /* ── STICKY BOTTOM BAR ── */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 20, 25, 0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--card-border);
+    padding: 12px 16px;
+    z-index: 100;
+  }
+
+  .bottom-bar-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.1s ease;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000000;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
   }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-eyebrow">Melbourne 2026 · Working Holiday Visa</div>
-  <h1 class="hero-name">Peter<br><em>Yuan</em></h1>
-  <p class="hero-title">Barista & Kitchen Hand · All-Rounder</p>
-  <p class="hero-bio">
-    Experienced All-Rounder skilled in specialty espresso execution, high-end cafe brunch preparation, and intricate knife work including avocado rose shaping. Reliable, fast-paced, and ready for immediate trial shifts in Melbourne.
-  </p>
-  <div class="hero-stats">
-    <div><span class="stat-num">2+</span><span class="stat-label">Years Experience</span></div>
-    <div><span class="stat-num">895</span><span class="stat-label">TOEIC Score</span></div>
-    <div><span class="stat-num">Immediate</span><span class="stat-label">Availability</span></div>
+<div class="container">
+
+  <!-- TOP HEADER CARD -->
+  <div class="profile-card">
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      Located in Melbourne · Ready for Trial
+    </div>
+    <h1 class="hero-title">PETER YUAN</h1>
+    <p class="hero-subtitle">Cafe All-Rounder / Barista &amp; Kitchen Hand</p>
+    
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Visa Status</span>
+        <span class="info-value">WHV 417 (Full Work Rights)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Availability</span>
+        <span class="info-value">Immediate (7 Days / Week)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">English Level</span>
+        <span class="info-value">Fluent (TOEIC 895)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Location</span>
+        <span class="info-value">Flemington VIC 3031</span>
+      </div>
+    </div>
   </div>
+
+  <!-- SUMMARY -->
+  <div class="section-title">Summary</div>
+  <div class="card">
+    <ul class="highlight-list">
+      <li class="highlight-item">
+        <strong>High-Volume Coffee Speed:</strong> Experienced with grinder calibration, dial-in, milk steaming, layered latte art, and peak-hour ticket management.
+      </li>
+      <li class="highlight-item">
+        <strong>Kitchen &amp; Prep Capabilities:</strong> Capable in hot line prep, egg dishes, open toasts, pasta, precision knife work, and wash-up station management.
+      </li>
+      <li class="highlight-item">
+        <strong>Adaptable All-Rounder:</strong> Punctual, proactive in maintaining kitchen/front hygiene, and quick to integrate into existing team SOPs.
+      </li>
+    </ul>
+  </div>
+
+  <!-- WORK PROOF / COFFEE CRAFT -->
+  <div class="section-title">Coffee &amp; Food Craft</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="IMG_1624.jpeg" alt="Tulip Latte Art" onerror="this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Tulip+Pour'">
+      <div class="gallery-item-tag">Tulip Pour</div>
+    </div>
+    <div class="gallery-item">
+      <img src="IMG_1535.jpeg" alt="Rosetta Latte Art" onerror="this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Layered+Rosetta'">
+      <div class="gallery-item-tag">Layered Rosetta</div>
+    </div>
+    <div class="gallery-item">
+      <img src="IMG_2225.jpeg" alt="Multi-tier Tulip Latte Art" onerror="this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Multi-tier+Tulip'">
+      <div class="gallery-item-tag">Multi-tier Tulip</div>
+    </div>
+    <div class="gallery-item">
+      <img src="IMG_2284.jpeg" alt="High Volume Service Coffee" onerror="this.src='https://placehold.co/400x400/1e293b/f8fafc?text=Speed+%26+Consistency'">
+      <div class="gallery-item-tag">Speed &amp; Consistency</div>
+    </div>
+  </div>
+
+  <!-- SKILLS BREAKDOWN -->
+  <div class="section-title">Skills &amp; Capabilities</div>
+  <div class="card">
+    <div class="tags-wrapper">
+      <span class="tag highlight">Espresso Dial-in</span>
+      <span class="tag highlight">Latte Art</span>
+      <span class="tag highlight">Line Prep &amp; Cooking</span>
+      <span class="tag">Manual Pour-over</span>
+      <span class="tag">Knife Skills</span>
+      <span class="tag">Food Safety &amp; Hygiene</span>
+      <span class="tag">POS &amp; Cash Handling</span>
+      <span class="tag">Inventory Control</span>
+      <span class="tag">Kitchen Hand &amp; Wash-up</span>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section-title">Work Experience</div>
+  <div class="card">
+    
+    <div class="job-item">
+      <div class="job-header">
+        <span class="job-role">Kitchen Hand &amp; Line Prep</span>
+        <span class="job-period">Sep – Oct 2026</span>
+      </div>
+      <div class="job-company">Avocado Coffee · Taiwan</div>
+      <ul class="job-desc">
+        <li>• Prepared gourmet brunch items, open toasts, and pasta orders during peak periods.</li>
+        <li>• Handled prep work including precision avocado knife styling, meat trimming, and sous-vide setup.</li>
+      </ul>
+    </div>
+
+    <div class="job-item">
+      <div class="job-header">
+        <span class="job-role">Shift Lead / Assistant Manager</span>
+        <span class="job-period">May – Sep 2026</span>
+      </div>
+      <div class="job-company">Milksha · Taiwan</div>
+      <ul class="job-desc">
+        <li>• Managed shift floor operations, team allocation, and fast order processing under pressure.</li>
+        <li>• Maintained inventory, stock ordering, and strict hygiene compliance.</li>
+      </ul>
+    </div>
+
+    <div class="job-item">
+      <div class="job-header">
+        <span class="job-role">Lead Barista &amp; All-Rounder</span>
+        <span class="job-period">Nov 2025 – Apr 2026</span>
+      </div>
+      <div class="job-company">2Gather Cafe · Taiwan</div>
+      <ul class="job-desc">
+        <li>• Handled daily espresso dial-in, latte art quality control, and pour-over coffee service.</li>
+        <li>• Prepared in-house desserts and light brunch options.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section-title">Education</div>
+  <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <div style="font-weight: 700; font-size: 0.9rem; color: #fff;">Bachelor of Business Administration</div>
+      <div style="font-size: 0.78rem; color: var(--text-sub);">National Chung Cheng University</div>
+    </div>
+    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">2020 – 2024</div>
+  </div>
+
 </div>
 
-<section>
-  <div class="section-label">Visual Portfolio</div>
-  <h2 class="section-heading">Kitchen & Bar Works</h2>
-  <div class="gallery-grid">
-    <div class="gallery-item large">
-      <img src="IMG_4124_2.jpg" alt="Avocado Rose Prep">
-      <div class="gallery-overlay">Avocado Rose Precision Prep · 酪林咖啡</div>
-    </div>
-    <div class="gallery-item">
-      <img src="IMG_4096_2.jpg" alt="Open Sandwich">
-      <div class="gallery-overlay">Prawn & Avocado Open Sandwich</div>
-    </div>
-    <div class="gallery-item">
-      <img src="IMG_4200_2.jpg" alt="Truffle Risotto">
-      <div class="gallery-overlay">Truffle Risotto with Avocado Rose</div>
-    </div>
-    <div class="gallery-item">
-      <img src="latte3.jpg" alt="Latte Art Tulip">
-      <div class="gallery-overlay">Latte Art · Tulip Pour</div>
-    </div>
-    <div class="gallery-item">
-      <img src="latte5.jpg" alt="Latte Art Heart">
-      <div class="gallery-overlay">Latte Art · Free Pour Heart</div>
-    </div>
+<!-- STICKY BOTTOM ACTION BAR -->
+<div class="bottom-bar">
+  <div class="bottom-bar-inner">
+    <a href="tel:0400000000" class="btn btn-secondary">
+      Call Phone
+    </a>
+    <a href="mailto:peteryuan08@gmail.com" class="btn btn-primary">
+      Email Resume
+    </a>
   </div>
-</section>
-
-<section>
-  <div class="section-label">Career Background</div>
-  <h2 class="section-heading">Experience</h2>
-  
-  <div class="experience-card">
-    <div class="exp-period">Sep 2026 — Oct 2026</div>
-    <h3 class="exp-title">Kitchen Team Member · 酪林咖啡 (Laolin Cafe)</h3>
-    <p class="exp-desc">Executed brunch dish preparation, Nordic open sandwiches, pasta, and gourmet plating. Specialized in delicate knife work including avocado rose cutting and egg roll techniques. Handled meat butchery, vacuum sealing, and broth reduction.</p>
-  </div>
-
-  <div class="experience-card">
-    <div class="exp-period">Nov 2025 — Apr 2026</div>
-    <h3 class="exp-title">Barista & Operations · 2Gather Café</h3>
-    <p class="exp-desc">Managed espresso calibration, pour-overs, and independent bar service. Developed 3 original signature beverages and rebuilt stock control systems to minimize waste during rush hours.</p>
-  </div>
-
-  <div class="experience-card">
-    <div class="exp-period">Jul 2025 — Aug 2025</div>
-    <h3 class="exp-title">Management Trainee · Louisa Coffee</h3>
-    <p class="exp-desc">Trained in high-volume commercial chain standards across 500+ locations, focusing on speed, consistency, and station rotation.</p>
-  </div>
-</section>
-
-<footer>
-  Peter Yuan · Melbourne Portfolio · Contact via Printable Resume QR
-</footer>
+</div>
 
 </body>
 </html>
